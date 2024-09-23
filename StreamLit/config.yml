@@ -1,0 +1,11 @@
+CHUNK_SIZE: 900
+CHUNK_OVERLAP: 90
+NUM_RESULTS: 3
+DATA_PATH: 'data/'
+EMBEDDINGS: 'sentence-transformers/paraphrase-multilingual-mpnet-base-v2'
+VECTOR_DB: 'bdvectores/docs'
+NORMALIZE_EMBEDDINGS: True
+COLLECTION_NAME: 'docs'
+DEVICE: 'cpu'
+VECTOR_SPACE: 'cosine'
+LLM: 'llama3.1'
