@@ -2,7 +2,7 @@
 
 Este ejemplo esta basado en el siguiente codigo:
 
-[pixegami/langchain-rag-tutorial]https://github.com/pixegami/langchain-rag-tutorial
+:open_file_folder:[pixegami/langchain-rag-tutorial](https://github.com/pixegami/langchain-rag-tutorial)
 
 Adaptado para la charla.
 
