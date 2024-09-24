@@ -11,13 +11,13 @@ from ingest import run_ingest
 
 def get_pdf_text(pdf_docs: list[str]) -> str:
     """
-    Extracts text content from a list of PDF documents.
+    Extrae el contenido de texto de una lista de documentos PDF.
 
-    Args:
-        pdf_docs: A list of file paths or data objects representing the PDF documents.
+    Argumentos:
+        pdf_docs: Una lista de rutas de archivo o de objetos de datos que representan los documentos PDF.
 
-    Returns:
-        A string containing the combined text content of all PDFs.
+    Retorna:
+        Una cadena de texto que contiene el contenido combinado de todos los PDFs.
     """
 
     text = ""
@@ -30,13 +30,13 @@ def get_pdf_text(pdf_docs: list[str]) -> str:
 
 def handle_userinput(user_question: str) -> None:
     """
-    Processes user input and retrieves an answer using a RAG (Reader-Answer Generator) pipeline.
+    Procesa la entrada del usuario y obtiene una respuesta utilizando una tubería RAG (Generador de Respuestas).
 
-    Args:
-        user_question: The user's question about the uploaded documents.
+    Argumentos:
+        user_question: La pregunta del usuario sobre los documentos subidos.
 
-    Returns:
-        None (modifies Streamlit app state with the answer and processing time).
+    Retorna:
+        Nada (modifica el estado de la aplicación Streamlit con la respuesta y el tiempo de procesamiento).
     """
 
     start = timeit.default_timer()
@@ -52,10 +52,10 @@ def handle_userinput(user_question: str) -> None:
 
 def main() -> None:
     """
-    The main function of the Streamlit application.
+    La función principal de la aplicación Streamlit.
 
-    Loads environment variables, configures the Streamlit app layout,
-    handles user interaction, and processes PDFs.
+    Carga las variables de entorno, configura el diseño de la aplicación Streamlit,
+    maneja la interacción con el usuario y procesa los PDFs.
     """
 
     load_dotenv()

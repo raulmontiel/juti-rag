@@ -1,7 +1,7 @@
 """
-This script ingests text documents into a vector store for efficient retrieval and semantic search.
+Este script ingiere documentos de texto en una base de datos de vectores para una recuperación eficiente y búsqueda semántica.
 
-It leverages the LangChain library for text splitting, embedding generation, and vector store creation.
+Utiliza la biblioteca LangChain para la división de texto, generación de incrustaciones (embeddings), y creación de una base de datos de vectores.
 """
 
 import shutil
@@ -19,17 +19,17 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)  # Ignore depreca
 
 def run_ingest(documents):
     """
-    Ingests the provided documents into a LangChain vector store.
+    Ingesta los documentos proporcionados en una base de datos de vectores de LangChain.
 
-    Args:
-        documents: A list of text documents to be ingested.
+    Argumentos:
+        documents: Una lista de documentos de texto a ser ingeridos.
     """
 
-    # Load configuration variables from a YAML file
+    # Cargar las variables de configuración desde un archivo YAML
     with open('config.yml', 'r', encoding='utf8') as ymlfile:
         cfg = box.Box(yaml.safe_load(ymlfile))
 
-    # Split text into manageable chunks for embedding generation
+    # Dividir el texto en fragmentos manejables para la generación de incrustaciones
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=cfg.CHUNK_SIZE,
         chunk_overlap=cfg.CHUNK_OVERLAP
@@ -38,18 +38,18 @@ def run_ingest(documents):
     texts = text_splitter.create_documents(splits)
     print(f"Loaded {len(texts)} splits")
 
-    # Create embeddings using a Hugging Face model
+     # Crear embbedings usando un modelo de Hugging Face
     embeddings = HuggingFaceEmbeddings(
         model_name=cfg.EMBEDDINGS,
         model_kwargs={'device': cfg.DEVICE},
         encode_kwargs={'normalize_embeddings': cfg.NORMALIZE_EMBEDDINGS}
     )
 
-    # Create or clear the vector store directory
+    # Crear o vaciar la carpeta de la base de datos de vectores
     shutil.rmtree(cfg.VECTOR_DB, ignore_errors=True)
     print(f'{cfg.VECTOR_DB} : Carpeta Borrada')
 
-    # Build the vector store using LangChain's Chroma
+    # Construir la base de datos de vectores usando Chroma de LangChain
     vector_store = Chroma.from_documents(
         texts,
         embeddings,
@@ -62,7 +62,7 @@ def run_ingest(documents):
 
 
 if __name__ == "__main__":
-    # Run the ingestion process when executed as a script
+    # Ejecutar el proceso de ingestión cuando se ejecute como un script
     run_ingest()
 
 

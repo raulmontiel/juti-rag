@@ -14,15 +14,15 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 def load_embedding_model(model_name, normalize_embedding=True, device='cpu'):
     """
-    Loads a Hugging Face embedding model.
+    Carga un modelo de embbedings de Hugging Face.
 
-    Args:
-        model_name (str): Name of the Hugging Face model to load (e.g., "sentence-transformers/all-mpnet-base-v2").
-        normalize_embedding (bool, optional): Whether to normalize the embeddings during encoding. Defaults to True.
-        device (str, optional): Device to use for model inference (e.g., "cpu" or "cuda"). Defaults to "cpu".
+    Argumentos:
+        model_name (str): Nombre del modelo de Hugging Face a cargar (por ejemplo, "sentence-transformers/all-mpnet-base-v2").
+        normalize_embedding (bool, opcional): Si se deben normalizar las incrustaciones durante la codificación. Por defecto es True.
+        device (str, opcional): Dispositivo a usar para la inferencia del modelo (por ejemplo, "cpu" o "cuda"). Por defecto es "cpu".
 
-    Returns:
-        HuggingFaceEmbeddings: The loaded embedding model.
+    Retorna:
+        HuggingFaceEmbeddings: El modelo de embbedings cargado.
     """
 
     return HuggingFaceEmbeddings(
@@ -36,17 +36,17 @@ def load_embedding_model(model_name, normalize_embedding=True, device='cpu'):
 
 def load_retriever(embeddings, store_path, collection_name, vector_space, num_results=1):
     """
-    Loads a retriever from a Chroma vector store.
+    Carga un retriever desde una base de datos de vectores de Chroma.
 
-    Args:
-        embeddings (HuggingFaceEmbeddings): The embedding model to use for encoding documents.
-        store_path (str): Path to the directory where the vector store persists data.
-        collection_name (str): Name of the collection within the vector store.
-        vector_space (str): Type of vector space used in the collection (e.g., "hnsw").
-        num_results (int, optional): Number of documents to retrieve for each query. Defaults to 1.
+    Argumentos:
+        embeddings (HuggingFaceEmbeddings): El modelo de embbedings a usar para codificar documentos.
+        store_path (str): Ruta al directorio donde se persiste la base de datos de vectores.
+        collection_name (str): Nombre de la colección dentro de la base de datos de vectores.
+        vector_space (str): Tipo de espacio vectorial usado en la colección (por ejemplo, "hnsw").
+        num_results (int, opcional): Número de documentos a recuperar por consulta. Por defecto es 1.
 
-    Returns:
-        RetrievalQA: The loaded retriever.
+    Retorna:
+        RetrievalQA: El retriever cargado.
     """
 
     vector_store = Chroma(collection_name=collection_name,
@@ -60,21 +60,11 @@ def load_retriever(embeddings, store_path, collection_name, vector_space, num_re
 
 def load_prompt_template():
     """
-    Loads a PromptTemplate object for guiding the large language model during retrieval-based QA.
+    Carga un objeto PromptTemplate para guiar al modelo de lenguaje grande (LLM) durante la recuperación basada en preguntas y respuestas (QA).
 
-    Returns:
-        PromptTemplate: The loaded prompt template.
+    Retorna:
+        PromptTemplate: La plantilla de prompt cargada.
     """
-
-    # template = """Use the following pieces of information to answer the user's question.
-    # If you don't know the answer, just say that you don't know, don't try to make up an answer.
-
-    # Context: {context}
-    # Question: {question}
-
-    # Only return the helpful answer below and nothing else.
-    # Helpful answer:
-    # """
 
     template = """Usa las siguiente informacion para responder las consultas del usuario.
     Si no encuentras la respuesta, solo di que no se la respuesta, no intentes responder en ese caso.
@@ -93,15 +83,15 @@ def load_prompt_template():
 
 def load_qa_chain(retriever, llm, prompt):
     """
-    Loads a RetrievalQA chain for performing retrieval-based question answering.
+    Carga una cadena de preguntas y respuestas basada en recuperación (RetrievalQA) para realizar QA.
 
-    Args:
-        retriever (RetrievalQA): The retriever to use for retrieving relevant documents.
-        llm (Ollama): The large language model to use for answering the question.
-        prompt (PromptTemplate): The prompt template to guide the LLM.
+    Argumentos:
+        retriever (RetrievalQA): El retriever a usar para recuperar documentos relevantes.
+        llm (Ollama): El LLM a usar para responder la pregunta.
+        prompt (PromptTemplate): La plantilla de prompt para guiar al LLM.
 
-    Returns:
-        RetrievalQA: The loaded QA chain.
+    Retorna:
+        RetrievalQA: La cadena de QA cargada.
     """
     return RetrievalQA.from_chain_type(
         llm=llm,
@@ -114,7 +104,7 @@ def load_qa_chain(retriever, llm, prompt):
 
 def build_rag_pipeline():
     
-    # Import config vars
+    # Importar variables de configuración
     with open('config.yml', 'r', encoding='utf8') as ymlfile:
         cfg = box.Box(yaml.safe_load(ymlfile))
 

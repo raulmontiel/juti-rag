@@ -1,46 +1,46 @@
 """
-This script defines styles and message templates for a chat-like interface.
+Este script define estilos y plantillas de mensajes para una interfaz similar a un chat.
 
-It includes:
+Incluye:
 
-- CSS styles: Define the visual appearance of chat messages for both user and bot.
-- bot_template: A formatted HTML string representing a message from the bot.
-- user_template: A formatted HTML string representing a message from the user.
+- Estilos CSS: Definen la apariencia visual de los mensajes del chat tanto para el usuario como para el bot.
+- bot_template: Una cadena HTML formateada que representa un mensaje del bot.
+- user_template: Una cadena HTML formateada que representa un mensaje del usuario.
 
-You can use these templates within your Streamlit or other web framework application
-to create a visually appealing and informative chat interface.
+Puedes usar estas plantillas dentro de tu aplicación en Streamlit u otro marco web
+para crear una interfaz de chat visualmente atractiva e informativa.
 """
 
 css = """
 <style>
-  /* Docstring for CSS styles */
+  /* Docstring para los estilos CSS */
   .chat-message {
-    /* Styling for chat message containers */
+    /* Estilos para los contenedores de los mensajes del chat */
     padding: 1.5rem;
     border-radius: 0.5rem;
     margin-bottom: 1rem;
-    display: flex; /* Allow avatars and messages side-by-side */
+    display: flex; /* Permite que los avatares y los mensajes estén uno al lado del otro */
   }
 
   .chat-message.user {
-    /* Styling for user messages */
-    background-color: #2b313e; /* Darker blue background */
-    color: #fff; /* White text for user messages */
+    /* Estilos para los mensajes del usuario */
+    background-color: #2b313e; /* Fondo azul oscuro */
+    color: #fff; /* Texto blanco para los mensajes del usuario */
   }
 
   .chat-message.bot {
-    /* Styling for bot messages */
-    background-color: #475063; /* Lighter blue background */
-    color: #fff; /* White text for bot messages */
+    /* Estilos para los mensajes del bot */
+    background-color: #475063; /* Fondo azul claro */
+    color: #fff; /* Texto blanco para los mensajes del bot */
   }
 
   .chat-message .avatar {
-    /* Styling for avatar images */
-    width: 20%; /* Allocate 20% width for avatars */
+    /* Estilos para las imágenes de avatar */
+    width: 20%; /* Asignar 20% del ancho para los avatares */
   }
 
   .chat-message .avatar img {
-    /* Styling for avatar images within message containers */
+    /* Estilos para las imágenes de avatar dentro de los contenedores de mensajes */
     max-width: 78px;
     max-height: 78px;
     border-radius: 50%;
@@ -48,9 +48,9 @@ css = """
   }
 
   .chat-message .message {
-    /* Styling for message text */
-    width: 80%; /* Allocate 80% width for message content */
-    padding: 0 1.5rem; /* Add padding for better readability */
+    /* Estilos para el texto del mensaje */
+    width: 80%; /* Asignar 80% del ancho para el contenido del mensaje */
+    padding: 0 1.5rem; /* Añadir relleno para una mejor legibilidad */
   }
 </style>
 """
@@ -73,7 +73,7 @@ user_template = """
 </div>
 """
 
-# UI Improvements (consider implementing these in your application):
-# - Allow users to customize avatar images (through file upload or selection)
-# - Implement a message input field for user interaction
-# - Integrate the templates with your chosen framework to display chat messages
+# Mejoras de UI (considera implementarlas en tu aplicación):
+# - Permitir a los usuarios personalizar las imágenes de avatar (a través de la carga de archivos o selección)
+# - Implementar un campo de entrada de mensajes para la interacción del usuario
+# - Integrar las plantillas con el marco elegido para mostrar los mensajes del chat

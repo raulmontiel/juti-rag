@@ -14,26 +14,28 @@ DATA_PATH = "data"
 
 def main():
 
-    # Check if the database should be cleared (using the --clear flag).
+    # Verifica si se debe limpiar la base de datos (usando el flag --reset).
     parser = argparse.ArgumentParser()
-    parser.add_argument("--reset", action="store_true", help="Resetear la base de datos.")
+    parser.add_argument("--reset", action="store_true", help="Limpiar la base de datos.")
     args = parser.parse_args()
     if args.reset:
         print("🧹🪣🚿 Limpiando Base de Datos")
         clear_database()
 
-    # Create (or update) the data store.
+    # Crea (o actualiza) el almacén de datos.
     documents = load_documents()
     chunks = split_documents(documents)
     add_to_chroma(chunks)
 
 
 def load_documents():
+    # Carga los documentos desde un directorio de PDFs.
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     return document_loader.load()
 
 
 def split_documents(documents: list[Document]):
+    # Divide los documentos en chunks manejables.
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=900,
         chunk_overlap=90,
@@ -44,20 +46,20 @@ def split_documents(documents: list[Document]):
 
 
 def add_to_chroma(chunks: list[Document]):
-    # Load the existing database.
+    # Carga la base de datos existente.
     db = Chroma(
         persist_directory=CHROMA_PATH, embedding_function=get_embedding_function()
     )
 
-    # Calculate Page IDs.
+    # Calcula los IDs de las páginas.
     chunks_with_ids = calculate_chunk_ids(chunks)
 
-    # Add or Update the documents.
-    existing_items = db.get(include=[])  # IDs are always included by default
+    # Agrega o actualiza los documentos.
+    existing_items = db.get(include=[])  # Los IDs siempre se incluyen por defecto
     existing_ids = set(existing_items["ids"])
     print(f"Numero de 📄 Documentos existentes en la BD: {len(existing_ids)}")
 
-    # Only add documents that don't exist in the DB.
+    # Solo agrega documentos que no existen en la BD.
     new_chunks = []
     for chunk in chunks_with_ids:
         if chunk.metadata["id"] not in existing_ids:
@@ -74,8 +76,8 @@ def add_to_chroma(chunks: list[Document]):
 
 def calculate_chunk_ids(chunks):
 
-    # This will create IDs like "data/monopoly.pdf:6:2"
-    # Page Source : Page Number : Chunk Index
+    # Esto creará IDs como "data/monopoly.pdf:6:2"
+    # Fuente de la página: Número de página: Índice del chunk
 
     last_page_id = None
     current_chunk_index = 0
@@ -85,17 +87,17 @@ def calculate_chunk_ids(chunks):
         page = chunk.metadata.get("page")
         current_page_id = f"{source}:{page}"
 
-        # If the page ID is the same as the last one, increment the index.
+        # Si el ID de la página es el mismo que el anterior, incrementa el índice.
         if current_page_id == last_page_id:
             current_chunk_index += 1
         else:
             current_chunk_index = 0
 
-        # Calculate the chunk ID.
+        # Calcula el ID del chunk.
         chunk_id = f"{current_page_id}:{current_chunk_index}"
         last_page_id = current_page_id
 
-        # Add it to the page meta-data.
+        # Añade a los metadatos de la página.
         chunk.metadata["id"] = chunk_id
 
     return chunks
