@@ -1,5 +1,6 @@
 # RAG JUTI 2024
-Repositorio de codigos de ejemplo para charla de JUTI, UTN FRRe
+Repositorio de codigos de ejemplo para charla de JUTI, UTN FRRe.
+> JUTI: Jornadas Universitarias Tecnologicas sobre Informatica. Universidad Tecnologica Nacional - Facultad Regional Resistencia.
 
 ## Simple RAG :rocket:
 [Simple RAG!](https://github.com/raulmontiel/juti-rag/tree/main/Simple)
