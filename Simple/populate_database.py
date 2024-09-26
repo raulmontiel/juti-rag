@@ -6,7 +6,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.schema.document import Document
 from get_embedding_function import get_embedding_function
 from langchain_chroma import Chroma
-
+from split_docs_by_sentences import split_documents_by_sentences
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data"
@@ -36,13 +36,14 @@ def load_documents():
 
 def split_documents(documents: list[Document]):
     # Divide los documentos en chunks manejables.
-    text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=900,
-        chunk_overlap=90,
-        length_function=len,
-        is_separator_regex=False,
-    )
-    return text_splitter.split_documents(documents)
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #     chunk_size=900,
+    #     chunk_overlap=90,
+    #     length_function=len,
+    #     is_separator_regex=False,
+    # )
+    # return text_splitter.split_documents(documents)
+    return split_documents_by_sentences(documents)
 
 
 def add_to_chroma(chunks: list[Document]):
